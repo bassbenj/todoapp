@@ -7,13 +7,30 @@ class db():
             db = connect(
                 host= "localhost",
                 user= "root",
+                password= "")
+
+            cursor = db.cursor()
+            cursor.execute('create database if not exists todo')
+
+            db = db = connect(
+                host= "localhost",
+                user= "root",
                 password= "",
-                database= "todo")
+                database="todo")
 
             return db
 
         except Exception as e:
             print(e)
 
-if __name__ == '__main__':
-    pass
+    def db_create():
+        try:
+            db_connection = db.db_connect()
+            cursor = db_connection.cursor()
+            sql_file = open("todo.sql")
+            sql = sql_file.read()
+            cursor.execute(sql, multi=True)
+
+        except Exception as e:
+            print(e)
+
